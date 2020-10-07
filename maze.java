@@ -16,5 +16,11 @@ public class Maze {
 
   }
 
+  private void buildNew(int width = 0, int height = 0) {
+
+  }
+
+
+
 
 }
