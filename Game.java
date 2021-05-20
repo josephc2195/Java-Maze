@@ -21,7 +21,7 @@ public class Game extends JFrame{
         }
 
         private void mazeUI() {
-                setSize(width * cellSize + 250, height * cellSize + 100);
+                setSize(width * cellSize + 225, height * cellSize + 50);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setTitle("Chicas Apps: Maze Game");
                 DisplayMaze dm = new DisplayMaze(mz, cellSize);
