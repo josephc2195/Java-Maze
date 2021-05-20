@@ -18,83 +18,71 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
         Maze mz;
         int xOffset = 10;
         int yOffset = 10;
-        int cellSize = 20;
-
+        int cellSize = 25;
+        int currentX, currentY, prevX, prevY;
         Integer moveCounter = 0;
-
-        int pointX, pointY, oldX, oldY;
-        boolean erase;
-
+        
         public DisplayMaze() {
                 mz = new Maze();
-                pointX = xOffset + cellSize / 2;
-                pointY = yOffset + cellSize / 2;
-                oldX = pointX;
-                oldY = pointY;
+                currentX = xOffset + cellSize / 2;
+                currentY = yOffset + cellSize / 2;
+                prevX = currentX;
+                prevY = currentY;
                 addKeyListener(this);               
         }
 
-        public DisplayMaze(Maze mz2) {
-                mz = mz2;
-                pointX = xOffset + cellSize / 2;
-                pointY = yOffset + cellSize / 2;
-                oldX = pointX;
-                oldY = pointY;
+        public DisplayMaze(Maze mz) {
+                this.mz = mz;
+                currentX = xOffset + cellSize / 2;
+                currentY = yOffset + cellSize / 2;
+                prevX = currentX;
+                prevY = currentY;
                 addKeyListener(this);
         }
 
-        DisplayMaze(Maze mz2, int cellSize2) {
-                mz = mz2;
-                cellSize = cellSize2;
-                pointX = xOffset + cellSize / 2;
-                pointY = yOffset + cellSize / 2;
-                oldX = pointX;
-                oldY = pointY;
+        DisplayMaze(Maze mz, int cellSize) {
+                this.mz = mz;
+                this.cellSize = cellSize;
+                currentX = xOffset + cellSize / 2;
+                currentY = yOffset + cellSize / 2;
+                prevX = currentX;
+                prevY = currentY;
                 addKeyListener(this);
-        }
-
-        public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub                
         }
 
         public void keyPressed(KeyEvent e) {
-                oldX = pointX;
-                oldY = pointY;
+                prevX = currentX;
+                prevY = currentY;
 
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                        pointY = pointY + cellSize;
-                        if (pointY > getBounds().height) {
-                                pointY = getBounds().height;
+                        currentY = currentY + cellSize;
+                        if (currentY > getBounds().height) {
+                                currentY = getBounds().height;
                         }
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                        pointY = pointY - cellSize;
-                        if (pointY < 0) {
-                                pointY = 0;
+                        currentY = currentY - cellSize;
+                        if (currentY < 0) {
+                                currentY = 0;
                         }
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                        pointX = pointX - cellSize;
-                        if (pointX < 0) {
-                                pointX = 0;
+                        currentX = currentX - cellSize;
+                        if (currentX <= 0) {
+                                currentX = cellSize;
                         }
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        pointX = pointX + cellSize;
-                        if (pointX > getBounds().width) {
-                                pointX = getBounds().width;
+                        currentX = currentX + cellSize;
+                        if (currentX > getBounds().width - 225) {
+                                currentX = getBounds().width - 225 + cellSize;
                         }
                 }
 
                 repaint();
-                
-        }
-
-        public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
                 
         }
 
@@ -177,29 +165,29 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                         }
                 }
 
-                x = (oldX - xOffset - cellSize / 2) / cellSize;
-                y = (oldY - yOffset - cellSize / 2) / cellSize;
+                x = (prevX - xOffset - cellSize / 2) / cellSize;
+                y = (prevY - yOffset - cellSize / 2) / cellSize;
 
-                if (x >= 0 && x < mz.width && oldX > pointX && mz.cells[x][y].walls[3] == 1) {
-                        pointX = oldX;
-                        pointY = oldY;
+                if (x >= 0 && x < mz.width && prevX > currentX && mz.cells[x][y].walls[3] == 1) {
+                        currentX = prevX;
+                        currentY = prevY;
                 }
-                else if (x >= 0 && x < mz.width && oldX < pointX && mz.cells[x][y].walls[1] == 1) {
-                        pointX = oldX;
-                        pointY = oldY;
-                }
-
-                else if (y >= 0 && y < mz.height && oldY > pointY && mz.cells[x][y].walls[0] == 1) {
-                        pointX = oldX;
-                        pointY = oldY;
+                else if (x >= 0 && x < mz.width && prevX < currentX && mz.cells[x][y].walls[1] == 1) {
+                        currentX = prevX;
+                        currentY = prevY;
                 }
 
-                else if (y >= 0 && y < mz.height && oldY < pointY && mz.cells[x][y].walls[2] == 1) {
-                        pointX = oldX;
-                        pointY = oldY;
+                else if (y >= 0 && y < mz.height && prevY > currentY && mz.cells[x][y].walls[0] == 1) {
+                        currentX = prevX;
+                        currentY = prevY;
                 }
 
-                if (pointX != oldX || pointY != oldY) {
+                else if (y >= 0 && y < mz.height && prevY < currentY && mz.cells[x][y].walls[2] == 1) {
+                        currentX = prevX;
+                        currentY = prevY;
+                }
+
+                if (currentX != prevX || currentY != prevY) {
                         moveCounter++;
                 }
 
@@ -212,10 +200,10 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                 }
 
                 g.setColor(Color.LIGHT_GRAY);
-                g.fillRect(oldX - 2, oldY - 2, 4, 4);
+                g.fillRect(prevX - 2, prevY - 2, 4, 4);
 
                 g.setColor(Color.WHITE);
-                g.fillRect(pointX - 2, pointY - 2, 4, 4);
+                g.fillRect(currentX - 2, currentY - 2, 4, 4);
 
         }
        
@@ -223,6 +211,12 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
         public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 doDrawing(g);
+        }
+
+        public void keyTyped(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
         }
 
 
