@@ -2,19 +2,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Path2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import javax.swing.JPanel;
 
-public class DisplayMaze extends JPanel implements Printable, ActionListener, KeyListener {
+public class DisplayMaze extends JPanel implements KeyListener {
         Maze mz;
         int xOffset = 10;
         int yOffset = 10;
@@ -86,50 +79,12 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                 
         }
 
-        public void actionPerformed(ActionEvent e) {
-                myPrint();                
-        }
-
-        public void myPrint() {
-                PrinterJob job = PrinterJob.getPrinterJob();
-                job.setPrintable(this);
-                job.setJobName("Maze");
-                boolean log = job.printDialog();
-                if(log) {
-                        try {
-                                job.print();
-                        } catch (PrinterException ex) {
-                                System.out.println("Failure");
-                        }
-                }
-        }
-
-        public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                if(pageIndex > 0) {
-                        return NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-
-                doDrawing(g2d);
-
-                return PAGE_EXISTS;
-        }
-
         private void doDrawing(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.setColor(Color.CYAN);
-
                 Dimension size = getSize();
-                Insets insets = getInsets();
-
-                int w = size.width - insets.left - insets.right;
-                int h = size.height - insets.top - insets.bottom;
-
                 g2d.setBackground(Color.DARK_GRAY);
-                g2d.clearRect(0, 0, w, h);
-
+                g2d.setColor(Color.CYAN);
+                g2d.clearRect(0, 0, size.width, size.height);
         
                 Path2D mazeShape = new Path2D.Double();
 
