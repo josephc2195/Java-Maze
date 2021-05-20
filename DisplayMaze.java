@@ -21,7 +21,7 @@ public class DisplayMaze extends JPanel implements KeyListener {
                 currentY = yOffset + cellSize / 2;
                 prevX = currentX;
                 prevY = currentY;
-                addKeyListener(this);               
+                addKeyListener(this);       
         }
 
         public DisplayMaze(Maze mz) {
@@ -70,13 +70,11 @@ public class DisplayMaze extends JPanel implements KeyListener {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                         currentX = currentX + cellSize;
-                        if (currentX > getBounds().width - 225) {
+                        if (currentX > getBounds().width - 225 + cellSize) {
                                 currentX = getBounds().width - 225 + cellSize;
                         }
                 }
-
                 repaint();
-                
         }
 
         private void doDrawing(Graphics g) {
@@ -85,6 +83,7 @@ public class DisplayMaze extends JPanel implements KeyListener {
                 g2d.setBackground(Color.DARK_GRAY);
                 g2d.setColor(Color.CYAN);
                 g2d.clearRect(0, 0, size.width, size.height);
+                
                 Path2D path = new Path2D.Double();
 
                 int x, y;

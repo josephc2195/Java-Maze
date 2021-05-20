@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class Game extends JFrame{
-        int width = 20;
-        int height = 20;
+        int width = 10;
+        int height = 10;
         int cellSize = 25;
         Maze mz = new Maze(width, height);
 
