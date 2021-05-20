@@ -8,50 +8,49 @@ public class Maze {
     Cell[][] cells;
 
   public Maze() {
-    width = 15;
-    height = 15;
+    width = 20;
+    height = 20;
     cells = new Cell[width][height];
-    roll();
+    rollOut();
     createMaze();
   }
 
-  public Maze(int x, int y) {
-    width = x;
-    height = y;
-    cells = new Cell[width][height];
-    roll();
+  public Maze(int width, int height) {
+    this.width = width;
+    this.height = height;
+    cells = new Cell[this.width][this.height];
+    rollOut();
     createMaze();
 
   }
 
   public void printCells() {
     for(int i = 0; i < width; i++) {
-      for(int j = 0; j < height; j++) {
-        System.out.println(i + " " + j);
-        cells[i][j].printCells();
+      for(int x = 0; x < height; x++) {
+        System.out.println(i + " " + x);
+        cells[i][x].printCells();
         System.out.println("\n");
-
       }
     }
   }
 
-  public void roll() {
+  public void rollOut() {
     for(int i=0; i < width; i++) {
-      for(int j=0; j < height; j++) {
-        cells[i][j] = new Cell();;
-        cells[i][j].x = i;
-        cells[i][j].y = j;
+      for(int c=0; c < height; c++) {
+        cells[i][c] = new Cell();;
+        cells[i][c].x = i;
+        cells[i][c].y = c;
         if(i == 0) {
-          cells[i][j].borders[0] = 1;
+          cells[i][c].borders[0] = 1;
         }
-        if(j == 0) {
-          cells[i][j].borders[3] = 1;
+        if(c == 0) {
+          cells[i][c].borders[3] = 1;
         }
         if(i == width - 1 ) {
-          cells[i][j].borders[2] = 1;
+          cells[i][c].borders[2] = 1;
         }
         if(i == height - 1) {
-          cells[i][j].borders[1] = 1;
+          cells[i][c].borders[1] = 1;
         }
       }
     }
