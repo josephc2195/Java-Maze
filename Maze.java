@@ -62,14 +62,14 @@ public class Maze {
     int y = rand.nextInt(height);
     Stack<Cell> cellStack = new Stack<Cell>();
     int totalCells = width * height;
-    int visitedCells = 1;
-    Cell currentCell = cells[x][y];
+    int cellsVisited = 1;
+    Cell inCell = cells[x][y];
 
     ArrayList<Vertex> neighborCellList = new ArrayList<Vertex>();
 
     Vertex tempV = new Vertex();
 
-    while(visitedCells < totalCells) {
+    while(cellsVisited < totalCells) {
       neighborCellList.clear();
 
       tempV = new Vertex();
@@ -122,19 +122,19 @@ public class Maze {
         cells[tempV.x1][tempV.y1].walls[tempV.wall1] = 0;
         cells[tempV.x2][tempV.y2].walls[tempV.wall2] = 0;
 
-        cellStack.push(currentCell);
+        cellStack.push(inCell);
 
-        currentCell = cells[tempV.x2][tempV.y2];
+        inCell = cells[tempV.x2][tempV.y2];
 
-        x = currentCell.x;
-        y = currentCell.y;
+        x = inCell.x;
+        y = inCell.y;
 
-        visitedCells++;
+        cellsVisited++;
       }
       else {
-        currentCell = cellStack.pop();
-        x = currentCell.x;
-        y = currentCell.y;
+        inCell = cellStack.pop();
+        x = inCell.x;
+        y = inCell.y;
       }
     }
 
