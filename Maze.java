@@ -65,72 +65,70 @@ public class Maze {
     int cellsVisited = 1;
     Cell inCell = cells[x][y];
 
-    ArrayList<Vertex> neighborCellList = new ArrayList<Vertex>();
+    ArrayList<Vertex> adjCells = new ArrayList<Vertex>();
 
-    Vertex tempV = new Vertex();
+    Vertex tv = new Vertex();
 
     while(cellsVisited < totalCells) {
-      neighborCellList.clear();
-
-      tempV = new Vertex();
+      adjCells.clear();
+      tv = new Vertex();
       if(y-1 >= 0 && cells[x][y-1].checkWalls() == true) {
-        tempV.x1 = x;
-        tempV.y1 = y;
-        tempV.x2 = x;
-        tempV.y2 = y-1;
-        tempV.wall1 = 0;
-        tempV.wall2 = 2;
-        neighborCellList.add(tempV);
+        tv.x1 = x;
+        tv.y1 = y;
+        tv.x2 = x;
+        tv.y2 = y-1;
+        tv.wall1 = 0;
+        tv.wall2 = 2;
+        adjCells.add(tv);
       }
 
-      tempV = new Vertex();
+      tv = new Vertex();
       if(y+1 < height && cells[x][y+1].checkWalls() == true) {
-        tempV.x1 = x;
-        tempV.y1 = y;
-        tempV.x2 = x;
-        tempV.y2 = y+1;
-        tempV.wall1 = 2;
-        tempV.wall2 = 0;
-        neighborCellList.add(tempV);
+        tv.x1 = x;
+        tv.y1 = y;
+        tv.x2 = x;
+        tv.y2 = y+1;
+        tv.wall1 = 2;
+        tv.wall2 = 0;
+        adjCells.add(tv);
       }
 
-      tempV = new Vertex();
+      tv = new Vertex();
       if(x-1 >= 0 && cells[x-1][y].checkWalls() == true) {
-        tempV.x1 = x;
-        tempV.y1 = y;
-        tempV.x2 = x-1;
-        tempV.y2 = y;
-        tempV.wall1 = 3;
-        tempV.wall2 = 1;
-        neighborCellList.add(tempV);
+        tv.x1 = x;
+        tv.y1 = y;
+        tv.x2 = x-1;
+        tv.y2 = y;
+        tv.wall1 = 3;
+        tv.wall2 = 1;
+        adjCells.add(tv);
       }
 
-      tempV = new Vertex();
+      tv = new Vertex();
       if(x+1 < width && cells[x+1][y].checkWalls() == true) {
-        tempV.x1 = x;
-        tempV.y1 = y;
-        tempV.x2 = x+1;
-        tempV.y2 = y;
-        tempV.wall1 = 1;
-        tempV.wall2 = 3;
-        neighborCellList.add(tempV);
+        tv.x1 = x;
+        tv.y1 = y;
+        tv.x2 = x+1;
+        tv.y2 = y;
+        tv.wall1 = 1;
+        tv.wall2 = 3;
+        adjCells.add(tv);
       }
 
-      if(neighborCellList.size() >=1) {
-        int r1 = rand.nextInt(neighborCellList.size());
-        tempV = neighborCellList.get(r1);
-        cells[tempV.x1][tempV.y1].walls[tempV.wall1] = 0;
-        cells[tempV.x2][tempV.y2].walls[tempV.wall2] = 0;
+      if(adjCells.size() >= 1) {
+        int r1 = rand.nextInt(adjCells.size());
+        tv = adjCells.get(r1);
+        cells[tv.x1][tv.y1].walls[tv.wall1] = 0;
+        cells[tv.x2][tv.y2].walls[tv.wall2] = 0;
 
         cellStack.push(inCell);
 
-        inCell = cells[tempV.x2][tempV.y2];
-
+        inCell = cells[tv.x2][tv.y2];
         x = inCell.x;
         y = inCell.y;
-
         cellsVisited++;
       }
+      
       else {
         inCell = cellStack.pop();
         x = inCell.x;

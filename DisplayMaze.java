@@ -208,7 +208,7 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                 
                 if (y==mz.width - 1 && x == mz.width - 1) {
                         System.out.println("Winner!");
-                        g2d.drawString("Winner", mz.width * cellSize + xOffset + 20, 100);
+                        g2d.drawString("Congratulations, You WON! ", mz.width * cellSize + xOffset + 20, 100);
                 }
 
                 g.setColor(Color.LIGHT_GRAY);
