@@ -140,7 +140,7 @@ public class Maze {
     }
 
     cells[0][0].walls[3] = 0;
-    cells[width - 2][height - 2].walls[1] = 0;
+    cells[14][14].walls[1] = 0;
   }
 
   public void init() {

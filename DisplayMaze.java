@@ -208,7 +208,7 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                 }
 
                 g2d.drawString("Moves: " + moveCounter.toString(), mz.width * cellSize + xOffset + 20, 20);
-                g2d.drawString("Move: Arrow Keys", mz.width * cellSize + xOffset + 20, 40);
+                g2d.drawString("Use arrow keys to move", mz.width * cellSize + xOffset + 20, 40);
 
                 if (y==mz.width - 1 && x == mz.width - 1) {
                         System.out.println("Winner!");
