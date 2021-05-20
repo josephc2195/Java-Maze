@@ -13,7 +13,7 @@ public class DisplayMaze extends JPanel implements KeyListener {
         int yOffset = 10;
         int cellSize = 25;
         int currentX, currentY, prevX, prevY;
-        Integer moveCounter = 0;
+        int moveCounter = 0;
         
         public DisplayMaze() {
                 mz = new Maze();
@@ -85,36 +85,34 @@ public class DisplayMaze extends JPanel implements KeyListener {
                 g2d.setBackground(Color.DARK_GRAY);
                 g2d.setColor(Color.CYAN);
                 g2d.clearRect(0, 0, size.width, size.height);
-        
-                Path2D mazeShape = new Path2D.Double();
+                Path2D path = new Path2D.Double();
 
                 int x, y;
-                for(Integer i = 0; i < mz.width; i++) {
+                for(int i = 0; i < mz.width; i++) {
                         x = i * cellSize + xOffset;
-                        for(Integer j = 0; j < mz.height; j++) {
+                        for(int j = 0; j < mz.height; j++) {
                                 y = j * cellSize + yOffset;
-
                                 if(mz.cells[i][j].walls[0] == 1) {
-                                        mazeShape.moveTo(x, y);
-                                        mazeShape.lineTo(x + cellSize, y);
+                                        path.moveTo(x, y);
+                                        path.lineTo(x + cellSize, y);
                                         g2d.drawLine(x, y, x + cellSize, y);
                                 }
 
                                 if(mz.cells[i][j].walls[1] == 1) {
-                                        mazeShape.moveTo(x + cellSize, y);
-                                        mazeShape.lineTo(x + cellSize, y + cellSize);
+                                        path.moveTo(x + cellSize, y);
+                                        path.lineTo(x + cellSize, y + cellSize);
                                         g2d.drawLine(x + cellSize, y, x + cellSize, y + cellSize);
                                 }
 
                                 if(mz.cells[i][j].walls[2] == 1) {
-                                        mazeShape.moveTo(x, y + cellSize);
-                                        mazeShape.lineTo(x + cellSize, y + cellSize);
+                                        path.moveTo(x, y + cellSize);
+                                        path.lineTo(x + cellSize, y + cellSize);
                                         g2d.drawLine(x, y + cellSize, x + cellSize, y + cellSize);
                                 }
 
                                 if(mz.cells[i][j].walls[3] == 1) {
-                                        mazeShape.moveTo(x, y);
-                                        mazeShape.lineTo(x, y + cellSize);
+                                        path.moveTo(x, y);
+                                        path.lineTo(x, y + cellSize);
                                         g2d.drawLine(x, y, x, y + cellSize);
                                 }
                         }
@@ -127,11 +125,12 @@ public class DisplayMaze extends JPanel implements KeyListener {
                         currentX = prevX;
                         currentY = prevY;
                 }
+                
                 else if (x >= 0 && x < mz.width && prevX < currentX && mz.cells[x][y].walls[1] == 1) {
                         currentX = prevX;
                         currentY = prevY;
                 }
-
+        
                 else if (y >= 0 && y < mz.height && prevY > currentY && mz.cells[x][y].walls[0] == 1) {
                         currentX = prevX;
                         currentY = prevY;
@@ -146,8 +145,9 @@ public class DisplayMaze extends JPanel implements KeyListener {
                         moveCounter++;
                 }
 
+                g2d.setFont(g2d.getFont().deriveFont(15f));
                 g2d.drawString("Use arrow keys to move", mz.width * cellSize + xOffset + 20, 40);
-                g2d.drawString("Moves: " + moveCounter.toString(), mz.width * cellSize + xOffset + 20, 20);
+                g2d.drawString("Moves: " + moveCounter, mz.width * cellSize + xOffset + 20, 20);
                 
                 if (y==mz.width - 1 && x == mz.width - 1) {
                         System.out.println("Winner!");
@@ -159,7 +159,6 @@ public class DisplayMaze extends JPanel implements KeyListener {
 
                 g.setColor(Color.WHITE);
                 g.fillRect(currentX - 2, currentY - 2, 4, 4);
-
         }
        
         @Override
