@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
 public class Game extends JFrame{
@@ -21,11 +23,15 @@ public class Game extends JFrame{
         }
 
         private void mazeUI() {
+                JMenuBar mb = new JMenuBar();
+                JMenu file = new JMenu("File");
+                mb.add(file);
                 setSize(width * cellSize + 225, height * cellSize + 50);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setTitle("Chicas Apps: Maze Game");
                 DisplayMaze dm = new DisplayMaze(mz, cellSize);
                 add(dm);
+                setJMenuBar(mb);
                 addKeyListener(dm);
                 setContentPane(dm);
                 dm.setFocusable(true);
