@@ -132,7 +132,7 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
 
         private void doDrawing(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.setColor(Color.blue);
+                g2d.setColor(Color.CYAN);
 
                 Dimension size = getSize();
                 Insets insets = getInsets();
@@ -140,7 +140,7 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                 int w = size.width - insets.left - insets.right;
                 int h = size.height - insets.top - insets.bottom;
 
-                g2d.setBackground(Color.white);
+                g2d.setBackground(Color.DARK_GRAY);
                 g2d.clearRect(0, 0, w, h);
 
         
@@ -215,10 +215,10 @@ public class DisplayMaze extends JPanel implements Printable, ActionListener, Ke
                         g2d.drawString("Winner", mz.width * cellSize + xOffset + 20, 100);
                 }
 
-                g.setColor(Color.GRAY);
+                g.setColor(Color.LIGHT_GRAY);
                 g.fillRect(oldX - 2, oldY - 2, 4, 4);
 
-                g.setColor(Color.BLACK);
+                g.setColor(Color.WHITE);
                 g.fillRect(pointX - 2, pointY - 2, 4, 4);
 
         }
