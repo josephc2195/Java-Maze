@@ -2,29 +2,28 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class Game extends JFrame{
-        int width = 15;
-        int height = 15;
-        int cellSize = 20;
+        int width = 20;
+        int height = 20;
+        int cellSize = 25;
         Maze mz = new Maze(width, height);
 
         public Game() {
-                initUI();
+                mazeUI();
         }
 
         public static void main(String[] args) {
                 SwingUtilities.invokeLater(new Runnable(){
                         public void run() {
-                                Game run = new Game();
-                                run.setVisible(true);
+                                Game start = new Game();
+                                start.setVisible(true);
                         }
                 });
         }
 
-        private void initUI() {
-                setTitle("New Game");
+        private void mazeUI() {
+                setSize(width * cellSize + 250, height * cellSize + 100);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                setSize(width * cellSize + 200, height * cellSize + 75);
-
+                setTitle("Chicas Apps: Maze Game");
                 DisplayMaze dm = new DisplayMaze(mz, cellSize);
                 add(dm);
                 addKeyListener(dm);

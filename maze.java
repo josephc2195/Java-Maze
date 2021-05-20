@@ -11,16 +11,16 @@ public class Maze {
     width = 15;
     height = 15;
     cells = new Cell[width][height];
-    initializeCells();
-    generateMaze();
+    roll();
+    createMaze();
   }
 
   public Maze(int x, int y) {
     width = x;
     height = y;
     cells = new Cell[width][height];
-    initializeCells();
-    generateMaze();
+    roll();
+    createMaze();
 
   }
 
@@ -35,7 +35,7 @@ public class Maze {
     }
   }
 
-  public void initializeCells() {
+  public void roll() {
     for(int i=0; i < width; i++) {
       for(int j=0; j < height; j++) {
         cells[i][j] = new Cell();;
@@ -57,7 +57,7 @@ public class Maze {
     }
   }
 
-  private void generateMaze() {
+  private void createMaze() {
     Random rand = new Random();
     int x = rand.nextInt(width);
     int y = rand.nextInt(height);
@@ -140,13 +140,6 @@ public class Maze {
     }
 
     cells[0][0].walls[3] = 0;
-    cells[14][14].walls[1] = 0;
-  }
-
-  public void init() {
-    char wall_char = '#';
-    char start_char = 's';
-    char end_char = 'e';
-    char open_char = ' ';
+    cells[width - 1][height - 1].walls[1] = 0;
   }
 }
