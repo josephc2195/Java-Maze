@@ -9,7 +9,6 @@ public class Game extends JFrame{
         String input;
         Boolean window = false;
         
-
         public Game() {
                 inputUI();
         }
@@ -27,7 +26,6 @@ public class Game extends JFrame{
                 JPanel text = new JPanel();
                 JTextField userSize = new JTextField(10);
                 JLabel ask = new JLabel("Enter the size you want the maze to be.");
-                JLabel def = new JLabel("Leave blank for default (10, 10)");
                 
                 setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
                 
@@ -39,20 +37,20 @@ public class Game extends JFrame{
                                 String[] selection = input.split(" |\\,");
                                 width = Integer.parseInt(selection[0]);
                                 height = Integer.parseInt(selection[1]);
-                                System.out.println("Width: " + width + " height: " + height);
                                 mazeUI();
+                                
                         }
                 });
                 text.add(userSize);
                 add(ask);
-                add(def);
                 add(text);
                 
-                setSize(400, 150);
+                setSize(300, 100);
                 setTitle("Please enter a Size");
 
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                 setLocationRelativeTo(null);     
+                
         }
 
         private void mazeUI() {
@@ -68,11 +66,9 @@ public class Game extends JFrame{
                 DisplayMaze dm = new DisplayMaze(mz, cellSize);
                 add(dm);
                 setJMenuBar(mb);
+                dm.setFocusable(true);
                 addKeyListener(dm);
                 setContentPane(dm);
-                dm.setFocusable(true);
                 setLocationRelativeTo(null);
         }
-        
-        
 }

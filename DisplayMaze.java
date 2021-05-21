@@ -21,7 +21,7 @@ public class DisplayMaze extends JPanel implements KeyListener {
                 currentY = yOffset + cellSize / 2;
                 prevX = currentX;
                 prevY = currentY;
-                addKeyListener(this);       
+                addKeyListener(this);   
         }
 
         public DisplayMaze(Maze mz) {
@@ -33,7 +33,7 @@ public class DisplayMaze extends JPanel implements KeyListener {
                 addKeyListener(this);
         }
 
-        DisplayMaze(Maze mz, int cellSize) {
+        public DisplayMaze(Maze mz, int cellSize) {
                 this.mz = mz;
                 this.cellSize = cellSize;
                 currentX = xOffset + cellSize / 2;
