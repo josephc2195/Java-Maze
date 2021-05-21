@@ -6,22 +6,12 @@ public class Game extends JFrame{
         int width = 10;
         int height = 10;
         int cellSize = 25;
-        Maze mz = new Maze(width, height);
         String input;
+        Boolean window = false;
         
 
         public Game() {
                 inputUI();
-                System.out.println("input: " + input);  
-                // if(width == 0 && height == 0){
-                //         width = 15;
-                //         height = 15;
-                //         mazeUI();
-                // }
-                // else {
-                //         mazeUI();
-                // }
-
         }
 
         public static void main(String[] args) {
@@ -36,29 +26,33 @@ public class Game extends JFrame{
         private void inputUI() {
                 JPanel text = new JPanel();
                 JTextField userSize = new JTextField(10);
-                JButton submit = new JButton("Submit");
-                JLabel ask = new JLabel("Please enter the size you want the maze to be.");
+                JLabel ask = new JLabel("Enter the size you want the maze to be.");
+                JLabel def = new JLabel("Leave blank for default (10, 10)");
                 
                 setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
                 
                 userSize.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                input = userSize.getText();
+                                while(input == null){
+                                        input = userSize.getText();
+                                }
+                                String[] selection = input.split(" |\\,");
+                                width = Integer.parseInt(selection[0]);
+                                height = Integer.parseInt(selection[1]);
+                                System.out.println("Width: " + width + " height: " + height);
+                                mazeUI();
                         }
-
                 });
-
                 text.add(userSize);
-                
                 add(ask);
+                add(def);
                 add(text);
-                add(submit);
                 
                 setSize(400, 150);
                 setTitle("Please enter a Size");
 
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-                setLocationRelativeTo(null);          
+                setLocationRelativeTo(null);     
         }
 
         private void mazeUI() {
@@ -70,6 +64,7 @@ public class Game extends JFrame{
                 setSize(width * cellSize + 225, height * cellSize + 100);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setTitle("Chicas Apps: Maze Game");
+                Maze mz = new Maze(width, height);
                 DisplayMaze dm = new DisplayMaze(mz, cellSize);
                 add(dm);
                 setJMenuBar(mb);
