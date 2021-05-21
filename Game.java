@@ -1,13 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
-// import javax.swing.JButton;
-// import javax.swing.JFrame;
-// import javax.swing.JMenu;
-// import javax.swing.JMenuBar;
-// import javax.swing.JMenuItem;
-// import javax.swing.JPanel;
-// import javax.swing.JTextField;
-// import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Game extends JFrame{
         int width = 10;
@@ -15,10 +8,19 @@ public class Game extends JFrame{
         int cellSize = 25;
         Maze mz = new Maze(width, height);
         String input;
+        
 
         public Game() {
                 inputUI();
-                //mazeUI();
+                System.out.println("input: " + input);  
+                // if(width == 0 && height == 0){
+                //         width = 15;
+                //         height = 15;
+                //         mazeUI();
+                // }
+                // else {
+                //         mazeUI();
+                // }
 
         }
 
@@ -36,14 +38,25 @@ public class Game extends JFrame{
                 JTextField userSize = new JTextField(10);
                 JButton submit = new JButton("Submit");
                 JLabel ask = new JLabel("Please enter the size you want the maze to be.");
+                
                 setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+                
+                userSize.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                input = userSize.getText();
+                        }
+
+                });
+
                 text.add(userSize);
+                
                 add(ask);
                 add(text);
                 add(submit);
+                
                 setSize(400, 150);
                 setTitle("Please enter a Size");
-                input = userSize.getText();     
+
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                 setLocationRelativeTo(null);          
         }
